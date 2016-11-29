@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarService } from './services/calendar/calendar.service';
+import { BulkEditComponent } from './components/bulk-edit/bulk-edit.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent
+    CalendarComponent,
+    BulkEditComponent
   ],
   imports: [
     BrowserModule,

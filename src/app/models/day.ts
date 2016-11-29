@@ -1,4 +1,5 @@
 export class Day {
+  public id: number;
   public type: string;
   public day: number;
   public price: number;
