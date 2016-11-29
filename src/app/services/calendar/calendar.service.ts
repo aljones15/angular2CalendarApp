@@ -5,9 +5,9 @@ import { Day } from '../../models/day';
 export class CalendarService {
   year: number;
   month: number;
-  daysInMonth: number;
+  days: Day[] = [];
+  daysInMonth: number = this.days ? this.days.length : 0;
   day: number;
-  days: Day[];
   constructor() {
 
   }
