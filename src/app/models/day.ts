@@ -1,10 +1,22 @@
+import { Room } from './room.ts';
+
 export class Day {
   public id: number;
-  public type: string;
-  public day: number;
-  public price: number;
-  public selected: boolean;
+  public day: Date;
+  public single: Room;
+  public double: Room;
   constructor(){
-    this.selected = false;
+
   }
 }
+
+/*
+  database dbo.days
+  id int
+  day DateTime
+  single_price int
+  single_available int
+  double_price int
+  double_available int
+
+  */
