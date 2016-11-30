@@ -1,62 +1,65 @@
-<div id="title" class="row">
-  <h3 class="col-xs-4">Bulk Operations</h3>
-</div>
-<form>
-<div id="select_room" class="row panel">
-  <h4 class="col-md-1 col-xs-2">Select Room:  </h4>
-  <select class="select col-md-2 col-xs-4 half-em-margin-top">
-    <option value="single">Single Room</option>
-    <option value="double">Double Room</option>
-  </select>
-</div>
-<div id="select_days" class="row panel">
-  <h4 class="col-md-1 col-xs-2">Select Days:</h4>
-  <div id="select_days_date_inputs" class="col-md-6 col-xs-10">
-    <label class="col-xs-6 half-em-margin-top"> From:
-      <input type="date" class="form-control" />
-    </label>
-    <label class="col-xs-6 half-em-margin-top"> To:
-      <input type="date" class="form-control"  />
-    </label>
+  <div id="title" class="row panel">
+    <h3 class="col-md-2 col-xs-4">Bulk Operations</h3>
+    <button class="col-md-1 col-xs-2 btn btn-default full-em-margin-top" (click)="showBulkEdit = !showBulkEdit">{{showBulkEdit ? "-" : "+"  }}</button>
   </div>
-</div>
-  <div id="refine_days" class="row panel">
-    <h4 class="col-md-1 col-xs-2">Refine Days:</h4>
-    <div class="col-xs-12 col-md-8">
-    <div class="form-group col-xs-4">
-      <input type="checkbox" name="all_days" value="all_days"> All Days <br>
-      <input type="checkbox" name="all_weekdays" value="all_weekdays"> All Weekdays <br>
-      <input type="checkbox" name="all_weekends" value="all_weekends"> All Weekends <br>
+  <div id="bulk-edit" *ngIf="showBulkEdit">
+  <form>
+    <div id="select_room" class="row panel">
+      <h4 class="col-md-1 col-xs-2">Select Room:  </h4>
+      <select class="select col-md-2 col-xs-4 half-em-margin-top">
+        <option value="single">Single Room</option>
+        <option value="double">Double Room</option>
+      </select>
     </div>
-    <div class="form-group col-xs-4">
-      <input type="checkbox" name="mondays" value="mondays"> Mondays <br>
-      <input type="checkbox" name="tuesdays" value="tuesdays"> Tuesdays <br>
-      <input type="checkbox" name="wednesdays" value="wednesdays"> Wednesdays <br>
+    <div id="select_days" class="row panel">
+      <h4 class="col-md-1 col-xs-2">Select Days:</h4>
+      <div id="select_days_date_inputs" class="col-md-6 col-xs-10">
+        <label class="col-xs-6 half-em-margin-top"> From:
+          <input type="date" class="form-control" />
+        </label>
+        <label class="col-xs-6 half-em-margin-top"> To:
+          <input type="date" class="form-control"  />
+        </label>
+      </div>
     </div>
-    <div class="form-group col-xs-4">
-      <input type="checkbox" name="thursdays" value="thursdays"> Thursdays <br>
-      <input type="checkbox" name="fridays" value="fridays"> Fridays <br>
-      <input type="checkbox" name="saturdays" value="saturdays"> Saturdays <br>
-      <input type="checkbox" name="sundays" value="sundays"> Sundays <br>
+      <div id="refine_days" class="row panel">
+        <h4 class="col-md-1 col-xs-2">Refine Days:</h4>
+        <div class="col-xs-12 col-md-8">
+        <div class="form-group col-xs-4">
+          <input type="checkbox" name="all_days" value="all_days"> All Days <br>
+          <input type="checkbox" name="all_weekdays" value="all_weekdays"> All Weekdays <br>
+          <input type="checkbox" name="all_weekends" value="all_weekends"> All Weekends <br>
+        </div>
+        <div class="form-group col-xs-4">
+          <input type="checkbox" name="mondays" value="mondays"> Mondays <br>
+          <input type="checkbox" name="tuesdays" value="tuesdays"> Tuesdays <br>
+          <input type="checkbox" name="wednesdays" value="wednesdays"> Wednesdays <br>
+        </div>
+        <div class="form-group col-xs-4">
+          <input type="checkbox" name="thursdays" value="thursdays"> Thursdays <br>
+          <input type="checkbox" name="fridays" value="fridays"> Fridays <br>
+          <input type="checkbox" name="saturdays" value="saturdays"> Saturdays <br>
+          <input type="checkbox" name="sundays" value="sundays"> Sundays <br>
+        </div>
+      </div>
+      </div>
+    <div id="change_price" class="row panel">
+      <h4 class="col-md-1 col-xs-2">Change Price:</h4>
+      <label class="col-xs-2 half-em-margin-top">
+        <input type="number" min="0" class="form-control" />
+      </label>
     </div>
-  </div>
-  </div>
-<div id="change_price" class="row panel">
-  <h4 class="col-md-1 col-xs-2">Change Price:</h4>
-  <label class="col-xs-2 half-em-margin-top">
-    <input type="number" min="0" class="form-control" />
-  </label>
+    <div id="change_availabilty" class="row panel">
+      <h4 class="col-md-1 col-xs-2">Change Availabilty:</h4>
+      <label class="col-xs-2 half-em-margin-top">
+        <input type="number" min="0" class="form-control" />
+      </label>
+    </div>
+    <div id="update" class="row panel">
+      <div class="btn-group btn-justified col-xs-8">
+        <button class="btn btn-default">Cancel</button>
+        <button class="btn btn-success">Update</button>
+      </div>
+    </div>
+  </form>
 </div>
-<div id="change_availabilty" class="row panel">
-  <h4 class="col-md-1 col-xs-2">Change Availabilty:</h4>
-  <label class="col-xs-2 half-em-margin-top">
-    <input type="number" min="0" class="form-control" />
-  </label>
-</div>
-<div id="update" class="row panel">
-  <div class="btn-group btn-justified col-xs-8">
-    <button class="btn-default">Cancel</button>
-    <button class="btn-success">Update</button>
-  </div>
-</div>
-</form>

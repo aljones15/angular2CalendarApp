@@ -24,3 +24,7 @@ no-padding {
 html body .half-em-margin-top{
   margin-top: 0.5em;
 }
+
+html body .full-em-margin-top{
+  margin-top: 1em;
+}
