@@ -25,6 +25,7 @@ import { BulkEditComponent } from './components/bulk-edit/bulk-edit.component';
 })
 export class AppModule {
   constructor(calendarService: CalendarService){
-  
+    calendarService.fetchMonth();
+    console.log(calendarService);
   }
  }

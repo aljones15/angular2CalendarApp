@@ -11,7 +11,8 @@ export class CalendarService {
     this.year = 1979;
   }
   public fetchMonth(){
-
+   let days = Array.from(new Array(31), (x , i) => i + 1);
+   this.days = days.map((i) => new Day(i , "2016-12-0" + i) );
   }
 
 }

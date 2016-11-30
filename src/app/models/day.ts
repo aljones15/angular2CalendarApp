@@ -5,8 +5,11 @@ export class Day {
   public day: Date;
   public single: Room;
   public double: Room;
-  constructor(){
-
+  constructor(id: number, day: string){
+    this.id = id;
+    this.day = new Date(day);
+    this.single = new Room(10 * id, 2, "single");
+    this.double = new Room(20 * id, 2, "double");
   }
 }
 

@@ -3,14 +3,16 @@ and also import other style files */
 @import './bootstrap/css/bootstrap.css';
 @import './bootstrap/css/bootstrap-theme.css';
 
-col-day-weekly {
+.col-day-weekly {
   width: 13%;
   height: 100%;
   margin: 0.1em;
   padding: 0.5em;
+  float: left;
+  list-style-type: none;
 }
 
-no-padding {
+.no-padding {
   padding: 0px;
 }
 

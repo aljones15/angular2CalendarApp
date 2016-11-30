@@ -1,6 +1,12 @@
-<p>
-  calendar works!
-</p>
-<div>
-  {{calendarService.year}}
+<div id="calendar">
+  <ul class="col-xs-12">
+    <li class="col-day-weekly" *ngFor="let day of displayDays">
+      Single: <br>
+      {{day.single.price}} <br>
+      {{day.single.selected}} <br>
+      Double: <br>
+      {{day.double.price}} <br>
+      {{day.double.selected}} <br>
+    </li>
+  </ul>
 </div>
