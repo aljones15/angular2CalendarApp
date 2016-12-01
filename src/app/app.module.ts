@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CalendarService } from './services/calendar/calendar.service';
 import { BulkEditComponent } from './components/bulk-edit/bulk-edit.component';
+import { DayComponent } from './components/day/day.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    BulkEditComponent
+    BulkEditComponent,
+    DayComponent
   ],
   imports: [
     BrowserModule,
