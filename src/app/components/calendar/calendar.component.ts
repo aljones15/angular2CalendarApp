@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { Day } from '../../models/day';
+import { DayComponent } from '../day/day.component';
 
 @Component({
   selector: 'app-calendar',

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { Day } from '../../models/day';
 // http://stackoverflow.com/questions/37971019/angular-2-detect-scroll-event-from-inner-div
@@ -9,9 +9,10 @@ import { Day } from '../../models/day';
   styleUrls: ['./day.component.css']
 })
 export class DayComponent implements OnInit {
-
+  @Input() day: Day;
+  calendarService: CalendarService;
   constructor(calendarService: CalendarService) {
-
+    this.calendarService = calendarService;
   }
 
   ngOnInit() {
