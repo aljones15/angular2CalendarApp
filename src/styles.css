@@ -12,6 +12,28 @@ and also import other style files */
   list-style-type: none;
 }
 
+.single-room {
+  background-color: #bf7979;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: thin;
+  border-color: green;
+  border-style: solid;
+}
+
+.single-room:hover {
+  background-color: #c36464;
+}
+
+.double-room {
+  background-color: #c7c731;
+}
+
+.double-room:hover {
+  background-color: #d6d625;
+}
+
 .no-padding {
   padding: 0px;
 }
