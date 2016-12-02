@@ -29,17 +29,18 @@
         <h4 class="col-md-1 col-xs-2">Refine Days:</h4>
         <div class="col-xs-12 col-md-8">
         <div class="form-group col-xs-4">
-          <input [(ngModel)]="all.days"  type="checkbox" name="all_days" value="all_days"> All Days <br>
-          <input [(ngModel)]="all.weekdays"  type="checkbox" name="all_weekdays" value="all_weekdays"> All Weekdays <br>
-          <input [(ngModel)]="all.weekends" type="checkbox" name="all_weekends" value="all_weekends"> All Weekends <br>
+          <input [(ngModel)]="all"  type="radio" name="all" value="all_days"> All Days <br>
+          <input [(ngModel)]="all"  type="radio" name="all" value="all_weekdays"> All Weekdays <br>
+          <input [(ngModel)]="all" type="radio" name="all" value="all_weekends"> All Weekends <br>
+          <input [(ngModel)]="all" type="radio" name="all" value="all_none"> None <br>
         </div>
         <div class="form-group col-xs-4">
           <input [(ngModel)]="week.monday" type="checkbox" name="mondays" value="mondays"> Mondays <br>
           <input [(ngModel)]="week.tuesday" type="checkbox" name="tuesday" value="tuesdays"> Tuesdays <br>
           <input [(ngModel)]="week.wednesday" type="checkbox" name="wednesdays" value="wednesdays"> Wednesdays <br>
+          <input [(ngModel)]="week.thursday" type="checkbox" name="thursdays" value="thursdays"> Thursdays <br>
         </div>
         <div class="form-group col-xs-4">
-          <input [(ngModel)]="week.thursday" type="checkbox" name="thursdays" value="thursdays"> Thursdays <br>
           <input [(ngModel)]="week.friday" type="checkbox" name="fridays" value="fridays"> Fridays <br>
           <input [(ngModel)]="week.saturday" type="checkbox" name="saturdays" value="saturdays"> Saturdays <br>
           <input [(ngModel)]="week.sunday" type="checkbox" name="sundays" value="sundays"> Sundays <br>
@@ -49,14 +50,16 @@
     <div id="change_price" class="row panel">
       <h4 class="col-md-1 col-xs-2">Change Price:</h4>
       <label class="col-xs-2 half-em-margin-top">
-        <input type="number" min="0" class="form-control" />
+        <input [(ngModel)]="newPrice" name="newPrice" type="number" min="0" class="form-control" />
       </label>
     </div>
     <div id="change_availabilty" class="row panel">
       <h4 class="col-md-1 col-xs-2">Change Availabilty:</h4>
       <label class="col-xs-2 half-em-margin-top">
-        <input type="number" min="0" class="form-control" />
+        <input [(ngModel)]="newAvailabilty" name="newAvailabilty" type="number" min="0" class="form-control" />
       </label>
+    </div>
+    <div *ngIf="getErrors('change_something')" class="col-xs-12">
     </div>
     <div id="update" class="row panel">
       <div class="btn-group btn-justified col-xs-8">

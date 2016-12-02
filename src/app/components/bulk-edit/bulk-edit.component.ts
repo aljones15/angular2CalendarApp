@@ -13,9 +13,11 @@ export class BulkEditComponent implements OnInit {
   calendarService: CalendarService;
   roomType: string = "single";
   selectDateRange: DateRange;
-  all: AllOptions;
+  all: string;
   week : Week;
   errors: CalendarError[];
+  newPrice: number;
+  newAvailabilty: number;
   constructor(calendarService: CalendarService) {
     this.calendarService = calendarService;
     this.reset();
@@ -51,18 +53,20 @@ export class BulkEditComponent implements OnInit {
     if (this.selectDateRange.from > this.selectDateRange.to){
       this.errors.push(new CalendarError("select-from", "From is Before To"));
     }
+    if(!this.newPrice && !this.newAvailabilty){
+      this.errors.push(new CalendarError("change_something", "Please specify a price or a new availability"));
+    }
   }
   update(){
     this.errors = [];
     this.validate();
     console.log(this);
+    if(this.errors.length <= 0){
+
+    }
   }
   reset(){
-    this.all = {
-      days: false,
-      weekdays: false,
-      weekends: false
-    };
+    this.all = null;
     this.week = {
       sunday: false,
       monday: false,
@@ -76,6 +80,8 @@ export class BulkEditComponent implements OnInit {
       from: null,
       to: null
     }
+    this.newPrice = null;
+    this.newAvailabilty = null;
     this.errors = [];
   }
 
