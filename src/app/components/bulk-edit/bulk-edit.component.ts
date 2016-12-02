@@ -32,9 +32,30 @@ export class BulkEditComponent implements OnInit {
      }
     })
   }
+
+  getErrors(section: string): boolean{
+    if(!this.errors){
+      return false;
+    }
+    if(this.errors.length <= 0){
+      return false;
+    }
+    let result: boolean = this.errors.reduce((a , b) => { return b.section == section }, false);
+    return result;
+  }
+
+  validate(){
+    if (!this.selectDateRange.from && this.selectDateRange.to || this.selectDateRange.from && !this.selectDateRange.to){
+      this.errors.push(new CalendarError("select-from", "Two Dates Required"));
+    }
+    if (this.selectDateRange.from > this.selectDateRange.to){
+      this.errors.push(new CalendarError("select-from", "From is Before To"));
+    }
+  }
   update(){
-    console.log(this);
     this.errors = [];
+    this.validate();
+    console.log(this);
   }
   reset(){
     this.all = {
