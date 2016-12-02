@@ -27,12 +27,56 @@ export class BulkEditComponent implements OnInit {
   }
 
   selectWeekends(){
-    console.log(this.roomType);
     this.calendarService.days.map((day) => {
      if(day.day.getDay() >= 5){
        day[this.roomType].selected = true;
      }
     })
+  }
+
+  selectWeekdays(){
+    this.calendarService.days.map((day) => {
+     if(day.day.getDay() < 5){
+       day[this.roomType].selected = true;
+     }
+    })
+  }
+
+  deselectAll(){
+  this.calendarService.days.map((day) => {
+     day.single.selected = false;
+     day.double.selected = false;
+  })
+  }
+
+  select_all(all: string){
+    this.deselectAll();
+    switch(all){
+      case "all_days":
+        this.calendarService.days.map((day) => {
+          day[this.roomType].selected = true; });
+          return;
+      case "all_weekends":
+        this.selectWeekends();
+        return;
+      case "all_weekdays":
+        this.selectWeekdays();
+        return;
+      case "all_none":
+        this.deselectAll();
+        return;
+      default:
+        return;
+    }
+  }
+
+  select_day(){
+    
+  }
+
+  select_days(){
+    console.log(this);
+    this.select_all(this.all);
   }
 
   getErrors(section: string): boolean{
