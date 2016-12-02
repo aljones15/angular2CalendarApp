@@ -10,19 +10,18 @@ import { DayComponent } from '../day/day.component';
 })
 export class CalendarComponent implements OnInit {
   calendarService: CalendarService;
-  displayDays: Day[];
   weekly: boolean;
   constructor(calendarService: CalendarService) {
     this.calendarService = calendarService;
-    this.displayDays = calendarService.days;
+    this.calendarService.displayDays = calendarService.days;
   }
   toggleWeekly(weekly: boolean){
     if(weekly){
-    if(this.displayDays.length > 7){
-      this.displayDays = this.calendarService.days.slice(0,7);
+    if(this.calendarService.displayDays.length > 7){
+      this.calendarService.displayDays = this.calendarService.days.slice(0,7);
      }
     } else {
-      this.displayDays = this.calendarService.days;
+      this.calendarService.displayDays = this.calendarService.days;
     }
   }
 

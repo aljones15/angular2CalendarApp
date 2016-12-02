@@ -16,9 +16,10 @@ export class DayComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.day.day);
   }
   OnDestroy(){
-
+  console.log(this.day.single);
   }
 
 }
