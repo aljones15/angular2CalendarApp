@@ -1,9 +1,11 @@
-<div class="single-room col-xs-12" [style.background-color]="day.single.selected ? 'white' : null">
-{{getDayString(day.day.getDay())}} <br>
-Single: <br>
-{{day.single.price}} <br>
-</div>
-<div class="double-room col-xs-12" [style.background-color]="day.double.selected ? 'white' : null" >
-Double: <br>
-{{day.double.price}} <br>
-</div>
+<li [style.width]="weekly ? '0.7%' : '13%'" class="col-day-weekly">
+  <h4 class="col-xs-12 text-center">{{getDayString(day.day.getDay())}}</h4>
+  <div class="single-room col-xs-12" [style.background-color]="day.single.selected ? 'rgba(36, 232, 160, 0.87)' : null">
+    Single: <br>
+    {{day.single.price}} <br>
+  </div>
+  <div class="double-room col-xs-12" [style.background-color]="day.double.selected ? 'rgba(192, 129, 224, 0.9)' : null" >
+    Double: <br>
+    {{day.double.price}} <br>
+  </div>
+</li>

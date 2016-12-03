@@ -6,7 +6,8 @@ and also import other style files */
 .slider-menu {
   position: relative;
 	overflow-y: hidden;
-	max-height: 550px; /* approximate max height */
+  overflow-x: hidden;
+	max-height: 550px;
 	transition-property: all;
 	transition-duration: .5s;
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
@@ -22,10 +23,12 @@ and also import other style files */
 
 .col-day-weekly {
   height: 100%;
-  margin: 0.1em;
-  padding: 0.5em;
+  margin: 0.5em;
   float: left;
   list-style-type: none;
+  box-shadow: 10px 10px 5px #888888;
+  border-radius: 5px;
+  border-style: outset;
 }
 
 #calendar {
@@ -33,25 +36,25 @@ and also import other style files */
 }
 
 .single-room {
-  background-color: #bf7979;
+  background-color: rgba(186, 198, 214, 0.29);
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
   border-bottom: thin;
-  border-color: green;
+  border-color: rgba(66, 93, 66, 0.77);
   border-style: solid;
 }
 
 .single-room:hover {
-  background-color: #c36464;
+  background-color: rgba(186, 198, 214, 0.8);
 }
 
 .double-room {
-  background-color: #c7c731;
+  background-color: rgba(187, 166, 177, 0.18);
 }
 
 .double-room:hover {
-  background-color: #d6d625;
+  background-color: rgba(160, 166, 177, 0.8);
 }
 
 .no-padding {
@@ -130,7 +133,12 @@ input:checked + .slider:before {
   }
 }
 
-@media (min-width: 760px) and (min-height: 300px) {
+@media (min-width: 700px) and (min-height: 300px) and (max-width: 1000px) {
+
+  h4 {
+    font-size: 1em;
+  }
+
   .switch {
     margin-top: 0.5em;
     height: 1.5em;
