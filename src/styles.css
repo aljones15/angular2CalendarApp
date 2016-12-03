@@ -13,6 +13,14 @@ and also import other style files */
 	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 
+.ul-weekly-true{
+  width: 2000%;
+}
+
+.ul-weekly-false{
+  width: 100%;
+}
+
 .slider.closed {
 	max-height: 0;
 }
@@ -23,12 +31,17 @@ and also import other style files */
 
 .col-day-weekly {
   height: 100%;
+  width: 13%;
   margin: 0.5em;
   float: left;
   list-style-type: none;
   box-shadow: 10px 10px 5px #888888;
   border-radius: 5px;
   border-style: outset;
+}
+
+.weekly-true{
+  width: 0.7%
 }
 
 #calendar {
@@ -121,7 +134,7 @@ input:checked + .slider:before {
   transform: translateX(250%);
 }
 
-@media (max-width: 430px) and (max-height: 580px) {
+@media (max-width: 699px) and (max-height: 800px) {
   .switch{
     display: none;
   }
@@ -131,6 +144,26 @@ input:checked + .slider:before {
   input.invisible {
     display: block;
   }
+
+  .col-day-weekly {
+    height: 100%;
+    width: 12%;
+    margin: 0.5em;
+    float: left;
+    list-style-type: none;
+    box-shadow: 10px 10px 5px #888888;
+    border-radius: 5px;
+    border-style: outset;
+  }
+
+  .weekly-true{
+    width: 2%
+  }
+
+  .ul-weekly-false{
+    width: 400%;
+  }
+
 }
 
 @media (min-width: 700px) and (min-height: 300px) and (max-width: 1000px) {

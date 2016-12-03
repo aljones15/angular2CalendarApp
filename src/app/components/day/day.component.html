@@ -1,4 +1,4 @@
-<li [style.width]="weekly ? '0.7%' : '13%'" class="col-day-weekly">
+<li [ngClass]="{'weekly-true': weekly }" class="col-day-weekly">
   <h4 class="col-xs-12 text-center">{{getDayString(day.day.getDay())}}</h4>
   <div class="single-room col-xs-12" [style.background-color]="day.single.selected ? 'rgba(36, 232, 160, 0.87)' : null">
     Single: <br>
