@@ -1,11 +1,9 @@
-<div class="single-room col-xs-12">
+<div class="single-room col-xs-12" [style.background-color]="day.single.selected ? 'white' : null">
 {{getDayString(day.day.getDay())}} <br>
 Single: <br>
 {{day.single.price}} <br>
-{{day.single.selected}} <br>
 </div>
-<div class="double-room col-xs-12">
+<div class="double-room col-xs-12" [style.background-color]="day.double.selected ? 'white' : null" >
 Double: <br>
 {{day.double.price}} <br>
-{{day.double.selected}} <br>
 </div>

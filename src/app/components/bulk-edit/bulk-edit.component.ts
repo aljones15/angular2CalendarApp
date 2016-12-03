@@ -85,6 +85,16 @@ export class BulkEditComponent implements OnInit {
       if(this.week[d]){
         this.select_day(weekdays.indexOf(d), this.roomType);
       }
+      if(this.selectDateRange.from && this.selectDateRange.to){
+        console.log();
+        let from = new Date(this.selectDateRange.from);
+        let to = new Date(this.selectDateRange.to);
+        this.calendarService.days.map((day) => {
+         if(day.day.getTime() >= from.getTime() && day.day.getTime() <= to.getTime()){
+           day[this.roomType].selected = true;
+         }
+        });
+      }
     })
   }
 
@@ -150,6 +160,7 @@ export class BulkEditComponent implements OnInit {
     this.newPrice = null;
     this.newAvailabilty = null;
     this.errors = [];
+    this.deselectAll();
   }
 
 }

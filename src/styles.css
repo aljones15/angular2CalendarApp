@@ -3,6 +3,10 @@ and also import other style files */
 @import './bootstrap/css/bootstrap.css';
 @import './bootstrap/css/bootstrap-theme.css';
 
+.c-hand {
+  cursor: pointer;
+}
+
 .col-day-weekly {
   height: 100%;
   margin: 0.1em;

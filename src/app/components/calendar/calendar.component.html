@@ -1,19 +1,19 @@
 <div class="row">
   <h2 class="text-success col-xs-6 col-md-2 col-lg-2">Calendar</h2>
   <div class="col-xs-6 full-em-margin-top">
-    <h4 class="col-xs-2 col-lg-1 text-right">Month</h4>
+    <h4 class="col-xs-3 col-lg-2 text-right c-hand" [style.color]="!weekly ? '#419641' : null" (click)="toggleWeekly(false)">Month</h4>
     <div class="col-xs-3 col-lg-2 col-4k-1">
       <label class="switch">
         <input [(ngModel)]="weekly" (click)="toggleWeekly(!weekly)" class="invisible" type="checkbox" >
         <div class="slider round"></div>
       </label>
   </div>
-  <h4 class="col-xs-2 col-lg-1 text-left">Week</h4>
+  <h4 class="col-xs-2 col-lg-1 text-left c-hand" [style.color]="weekly ? '#2196F3' : null" (click)="toggleWeekly(true)">Week</h4>
 </div>
 </div>
 <div id="calendar" class="panel">
   <ul [style.width]="weekly ? '2000%' : '100%'">
-    <li [style.width]="weekly ? '0.5%' : '13%'" class="col-day-weekly" *ngFor="let day of calendarService.displayDays; let i = index;">
+    <li [style.width]="weekly ? '0.7%' : '13%'" class="col-day-weekly" *ngFor="let day of calendarService.displayDays; let i = index;">
       <app-day [day]="day" [weekly]="weekly"></app-day>
     </li>
   </ul>
