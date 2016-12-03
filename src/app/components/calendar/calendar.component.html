@@ -12,9 +12,9 @@
 </div>
 </div>
 <div id="calendar" class="panel">
-  <ul class="col-xs-12">
-    <li class="col-day-weekly" *ngFor="let day of calendarService.displayDays">
-      <app-day [day]="day"></app-day>
+  <ul [style.width]="weekly ? '2000%' : '100%'">
+    <li [style.width]="weekly ? '0.5%' : '13%'" class="col-day-weekly" *ngFor="let day of calendarService.displayDays; let i = index;">
+      <app-day [day]="day" [weekly]="weekly"></app-day>
     </li>
   </ul>
 </div>

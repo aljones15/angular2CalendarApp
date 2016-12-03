@@ -4,12 +4,15 @@ and also import other style files */
 @import './bootstrap/css/bootstrap-theme.css';
 
 .col-day-weekly {
-  width: 13%;
   height: 100%;
   margin: 0.1em;
   padding: 0.5em;
   float: left;
   list-style-type: none;
+}
+
+#calendar {
+  overflow: auto;
 }
 
 .single-room {

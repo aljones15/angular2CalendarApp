@@ -16,13 +16,15 @@ export class CalendarComponent implements OnInit {
     this.calendarService.displayDays = calendarService.days;
   }
   toggleWeekly(weekly: boolean){
+    this.weekly = weekly;
+    /*
     if(weekly){
     if(this.calendarService.displayDays.length > 7){
       this.calendarService.displayDays = this.calendarService.days.slice(0,7);
      }
     } else {
       this.calendarService.displayDays = this.calendarService.days;
-    }
+    } */
   }
 
   ngOnInit() {

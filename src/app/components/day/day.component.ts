@@ -10,7 +10,9 @@ import { Day } from '../../models/day';
 })
 export class DayComponent implements OnInit {
   @Input() day: Day;
+  @Input() weekly: boolean;
   calendarService: CalendarService;
+
   constructor(calendarService: CalendarService) {
     this.calendarService = calendarService;
   }
