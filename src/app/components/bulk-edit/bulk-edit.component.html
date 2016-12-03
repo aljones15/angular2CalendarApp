@@ -2,11 +2,11 @@
     <h3 class="col-md-2 col-xs-4">Bulk Operations</h3>
     <button class="col-md-1 col-xs-2 btn btn-default full-em-margin-top" (click)="showBulkEdit = !showBulkEdit">{{showBulkEdit ? "-" : "+"  }}</button>
   </div>
-  <div id="bulk-edit" *ngIf="showBulkEdit">
+  <div class="slider-menu" id="bulk-edit" [style.max-height]="showBulkEdit ? '500px' : '0px'">
   <form>
     <div id="select_room" class="row panel">
       <h4 class="col-md-1 col-xs-3">Select Room:  </h4>
-      <select name="roomType" [(ngModel)]="roomType" class="select col-md-2 col-xs-6 full-em-margin-top">
+      <select name="roomType" (change)="select_days()" [(ngModel)]="roomType" class="select col-md-2 col-xs-6 full-em-margin-top">
         <option value="single">Single Room</option>
         <option value="double">Double Room</option>
       </select>
