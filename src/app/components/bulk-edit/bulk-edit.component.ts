@@ -70,13 +70,22 @@ export class BulkEditComponent implements OnInit {
     }
   }
 
-  select_day(){
-    
+
+  select_day(dayNum: number, roomType: string){
+    this.calendarService.days.map((d) => { if(d.day.getDay() == dayNum){
+      d[roomType].selected = true;
+    } })
   }
 
   select_days(){
     console.log(this);
     this.select_all(this.all);
+    let weekdays = Object.keys(this.week);
+    weekdays.map((d) => {
+      if(this.week[d]){
+        this.select_day(weekdays.indexOf(d), this.roomType);
+      }
+    })
   }
 
   getErrors(section: string): boolean{
@@ -86,7 +95,7 @@ export class BulkEditComponent implements OnInit {
     if(this.errors.length <= 0){
       return false;
     }
-    let result: boolean = this.errors.reduce((a , b) => { return b.section == section }, false);
+    let result: boolean = this.errors.reduce((a , b) => { if(b.section == section) { return true } return a; }, false);
     return result;
   }
 
@@ -101,12 +110,26 @@ export class BulkEditComponent implements OnInit {
       this.errors.push(new CalendarError("change_something", "Please specify a price or a new availability"));
     }
   }
+
+  changeDays(roomType: string){
+    let subsetDays = this.calendarService.days.map((d) => {
+      if(d[roomType].selected){
+        if(this.newPrice){
+          d[roomType].price = this.newPrice;
+        }
+        if(this.newAvailabilty){
+          d[roomType].available = this.newAvailabilty;
+        }
+
+      }
+     });
+  }
+
   update(){
     this.errors = [];
     this.validate();
-    console.log(this);
     if(this.errors.length <= 0){
-
+      this.changeDays(this.roomType);
     }
   }
   reset(){

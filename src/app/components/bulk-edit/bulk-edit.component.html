@@ -15,14 +15,11 @@
       <h4 class="col-md-1 col-xs-2">Select Days:</h4>
       <div id="select_days_date_inputs" class="col-md-6 col-xs-10">
         <label class="col-xs-6 half-em-margin-top"> From:
-          <input [(ngModel)]="selectDateRange.from" name="dateFrom" type="date" class="form-control" />
+          <input [style.border-color]="getErrors('select-from') ? 'red': null"  [(ngModel)]="selectDateRange.from" name="dateFrom" type="date" class="form-control" />
         </label>
         <label class="col-xs-6 half-em-margin-top"> To:
-          <input [(ngModel)]="selectDateRange.to" name="dateTo" type="date" class="form-control"  />
+          <input [style.border-color]="getErrors('select-from') ? 'red': null" [(ngModel)]="selectDateRange.to" name="dateTo" type="date" class="form-control"  />
         </label>
-        <ul class="col-xs-12" *ngIf="getErrors('select-from')">
-          <li>Errors!</li>
-        </ul>
       </div>
     </div>
       <div id="refine_days" class="row panel">
@@ -50,13 +47,13 @@
     <div id="change_price" class="row panel">
       <h4 class="col-md-1 col-xs-2">Change Price:</h4>
       <label class="col-xs-2 half-em-margin-top">
-        <input [(ngModel)]="newPrice" name="newPrice" type="number" min="0" class="form-control" />
+        <input [style.border-color]="getErrors('change_something') ? 'red': null" [(ngModel)]="newPrice" name="newPrice" type="number" min="0" class="form-control" />
       </label>
     </div>
     <div id="change_availabilty" class="row panel">
       <h4 class="col-md-1 col-xs-2">Change Availabilty:</h4>
       <label class="col-xs-2 half-em-margin-top">
-        <input [(ngModel)]="newAvailabilty" name="newAvailabilty" type="number" min="0" class="form-control" />
+        <input [style.border-color]="getErrors('change_something') ? 'red': null" [(ngModel)]="newAvailabilty" name="newAvailabilty" type="number" min="0" class="form-control" />
       </label>
     </div>
     <div *ngIf="getErrors('change_something')" class="col-xs-12">
