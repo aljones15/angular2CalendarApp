@@ -80,7 +80,7 @@ html body .full-em-margin-top{
   position: relative;
   display: inline-block;
   width: 80%;
-  height: 2.5em;
+  height: 2.5rem;
 }
 
 .slider {
@@ -136,7 +136,7 @@ input:checked + .slider:before {
 @media (min-width: 700px) and (min-height: 300px) and (max-width: 1000px) {
 
   h4 {
-    font-size: 1em;
+    font-size: 1rem;
   }
 
   .switch {
@@ -176,13 +176,13 @@ input:checked + .slider:before {
   }
 
   .slider:before {
-    width: 45%;
+    width: 30%;
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(85%);
-    -ms-transform: translateX(85%);
-    transform: translateX(85%);
+    -webkit-transform: translateX(145%);
+    -ms-transform: translateX(145%);
+    transform: translateX(145%);
   }
 }
 
