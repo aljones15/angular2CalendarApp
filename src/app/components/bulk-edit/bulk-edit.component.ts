@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarService } from '../../services/calendar/calendar.service';
 import { AllOptions, Week, DateRange } from '../../interfaces/interfaces';
 import { CalendarError } from '../../models/error';
+import { Day } from '../../models/day';
 
 @Component({
   selector: 'app-bulk-edit',
@@ -121,25 +122,29 @@ export class BulkEditComponent implements OnInit {
     }
   }
 
-  changeDays(roomType: string){
-    let subsetDays = this.calendarService.days.map((d) => {
-      if(d[roomType].selected){
-        if(this.newPrice){
-          d[roomType].price = this.newPrice;
-        }
-        if(this.newAvailabilty){
-          d[roomType].available = this.newAvailabilty;
-        }
-
-      }
+  changeDays(){
+    this.calendarService.days.map((d) => {
+      this.changeDay(d, "single");
+      this.changeDay(d, "double");
      });
+  }
+
+  changeDay(d: Day, roomType: string){
+    if(d[roomType].selected){
+      if(this.newPrice){
+        d[roomType].price = this.newPrice;
+      }
+      if(this.newAvailabilty){
+        d[roomType].available = this.newAvailabilty;
+      }
+    }
   }
 
   update(){
     this.errors = [];
     this.validate();
     if(this.errors.length <= 0){
-      this.changeDays(this.roomType);
+      this.changeDays();
     }
   }
   reset(){
