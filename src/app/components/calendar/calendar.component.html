@@ -11,8 +11,10 @@
   <h4 class="col-xs-3 col-lg-2 text-left c-hand" [style.color]="weekly ? '#2196F3' : null" (click)="toggleWeekly(true)">Week</h4>
 </div>
 <div class="col-xs-12 col-md-3">
+  <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() - 1 ,calendarService.displayDays[0].day.getFullYear())" id="previous-month" class="icon col-xs-3 previous-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() - 1) }} </div>
   <h4 class="col-xs-4">{{ formatMonth(calendarService.displayDays[0].day.getMonth()) }}</h4>
   <h4 class="col-xs-2">{{ calendarService.displayDays[0].day.getFullYear() }}</h4>
+  <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() + 1 ,calendarService.displayDays[0].day.getFullYear())" id="next-month" class="icon col-xs-3 next-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() + 1) }} </div>
 </div>
 </div>
 <div id="calendar" class="panel">

@@ -11,9 +11,15 @@ export class CalendarService {
   constructor() {
     this.year = 1979;
   }
-  public fetchMonth(){
-   let days = Array.from(new Array(31), (x , i) => i + 1);
-   this.days = days.map((i) => new Day(i , "2016-12-0" + i) );
+  public fetchMonth(month: number, year: number){
+   var days = Array.from(new Array(31), (x , i) => i + 1);
+   let FullDays: Day[] = days.map((i) => {
+     let dateString = year + "-" + month + "-" + i;
+     console.log(dateString);
+     return new Day(i , dateString);
+     } );
+   this.days = FullDays;
+   return FullDays;
   }
 
 }

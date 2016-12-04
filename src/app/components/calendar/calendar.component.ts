@@ -19,13 +19,28 @@ export class CalendarComponent implements OnInit {
     this.weekly = weekly;
   }
 
-  formatMonth(month: number){
+  calcMonth(month: number, year: number){
     if(month > 11){
-      console.error("incorrect month index");
-      month = month % 11;
+      month = month % 11 - 1;
+      year = year + 1;
     }
+    if(month < 0){
+      month = 12 + month;
+      year = year - 1;
+    }
+    return [month, year];
+  }
+
+  formatMonth(month: number){
+    let my = this.calcMonth(month, 2016);
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months[month];
+    return months[my[0]];
+  }
+
+  changeMonth(month: number, year: number){
+    let MonthYear = this.calcMonth(month, year);
+    let days = this.calendarService.fetchMonth(MonthYear[0] + 1, MonthYear[1]);
+    this.calendarService.displayDays = days;
   }
 
   ngOnInit() {
