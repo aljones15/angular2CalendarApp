@@ -208,6 +208,18 @@ input:checked + .slider:before {
       width: 8.33333333%;
   }
 
+  .col-4k-2 {
+      width: 16%;
+  }
+
+  .col-4k-3 {
+      width: 24%;
+  }
+
+  .col-4k-2 {
+      width: 32%;
+  }
+
   .slider:before {
     width: 30%;
   }

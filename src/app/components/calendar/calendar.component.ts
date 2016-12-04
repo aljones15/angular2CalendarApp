@@ -17,14 +17,15 @@ export class CalendarComponent implements OnInit {
   }
   toggleWeekly(weekly: boolean){
     this.weekly = weekly;
-    /*
-    if(weekly){
-    if(this.calendarService.displayDays.length > 7){
-      this.calendarService.displayDays = this.calendarService.days.slice(0,7);
-     }
-    } else {
-      this.calendarService.displayDays = this.calendarService.days;
-    } */
+  }
+
+  formatMonth(month: number){
+    if(month > 11){
+      console.error("incorrect month index");
+      month = month % 11;
+    }
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[month];
   }
 
   ngOnInit() {
