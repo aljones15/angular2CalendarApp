@@ -22,7 +22,13 @@
 </div>
 </div>
 <div *ngIf="calendarService.displayDays.length <= 0">
- Loading
+  <div class="loading">
+    <div class="spinner">
+      <div class="mask">
+        <div class="maskedCircle"></div>
+     </div>
+    </div>
+  </div>
 </div>
 <div id="calendar" class="panel">
   <ul [ngClass]="{'ul-weekly-true': weekly, 'ul-weekly-false': !weekly}">

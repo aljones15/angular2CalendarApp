@@ -14,11 +14,11 @@ export class CalendarService {
     this.year = 1979;
   }
 
-  public makeFakeDays(month: number, year: number){
-    let that = this;
+  public makeFakeDays(month: number, year: number, calendar: CalendarService){
     return function(error: Response | any): Day[]{
-       that.setDays(that.genDays(month, year));
-       return that.days;
+       let days = calendar.genDays(month, year);
+       calendar.setDays(days);
+       return days;
      }
   }
 
@@ -39,20 +39,18 @@ export class CalendarService {
     this.displayDays = days;
   }
 
-  private extractData(month: number, year: number){
-    let that = this;
+  private extractData(month: number, year: number, calendar: CalendarService){
     return function(res: Response): Day[]{
       let body = JSON.parse(res.json());
       let days = body.map((d) => {
         return new Day(d.id, d.day.timestamp * 1000, parseInt(d.singlePrice),parseInt(d.singleAvailable), parseInt(d.doublePrice), parseInt(d.doubleAvailable));
       })
-      console.log(days);
       if(days.length > 0){
-        that.setDays(days);
+        calendar.setDays(days);
       }
       else{
-        days = that.genDays(month, year);
-        that.setDays(days);
+        days = calendar.genDays(month, year);
+        calendar.setDays(days);
       }
       return days;
     }
@@ -61,8 +59,8 @@ export class CalendarService {
   getMonth(month: number, year: number): Promise<Day[]>{
     return this.http.get("http://localhost:8000/month/" + month + "/year/" + year)
       .toPromise()
-      .then(this.extractData(month, year))
-      .catch(this.makeFakeDays(month, year));
+      .then(this.extractData(month, year, this))
+      .catch(this.makeFakeDays(month, year, this));
   }
 
   public fetchMonth(month: number, year: number){
