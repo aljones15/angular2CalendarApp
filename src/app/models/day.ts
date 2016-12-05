@@ -1,15 +1,15 @@
 import { Room } from './room.ts';
 
 export class Day {
-  public id: number;
+  public id?: number;
   public day: Date;
   public single: Room;
   public double: Room;
-  constructor(id: number, day: string){
+  constructor(id: number, day: any, singlePrice: number, singleAvailable: number, doublePrice: number, doubleAvailable: number){
     this.id = id;
     this.day = new Date(day);
-    this.single = new Room(10 * id, 2, "single");
-    this.double = new Room(20 * id, 2, "double");
+    this.single = new Room(singlePrice, singleAvailable, "single");
+    this.double = new Room(doublePrice, doubleAvailable, "double");
   }
 }
 

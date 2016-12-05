@@ -30,6 +30,5 @@ import { DayDirective } from './directives/day/day.directive';
 export class AppModule {
   constructor(calendarService: CalendarService){
     calendarService.fetchMonth(12, 2016);
-    console.log(calendarService);
   }
  }
