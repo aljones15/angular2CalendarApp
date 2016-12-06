@@ -1,14 +1,14 @@
 <li [ngClass]="{'weekly-true': weekly }" class="col-day-weekly">
   <h3 class="col-xs-12 text-center" >{{day.day.getDate()}}</h3>
   <h4 class="col-xs-12 text-center">{{getDayString(day.day.getDay())}}</h4>
-  <div class="single-room col-xs-12 panel" (click)="day.single.selected = !day.single.selected"  [style.background-color]="day.single.selected ? 'rgba(36, 232, 160, 0.87)' : null">
+  <div class="single-room col-xs-12 panel no-padding tablet-font" (click)="day.single.selected = !day.single.selected"  [style.background-color]="day.single.selected ? 'rgba(36, 232, 160, 0.87)' : null">
     <span class="col-xs-12 text-center"><b [ngClass]="{'text-warning' : !day.single.selected}">Single</b></span>
-    <span class="col-xs-6 text-left"> Price </span><span class="col-xs-6 text-right">Available</span>
-    <span class="col-xs-6 text-left">{{day.single.price}}</span><span class="col-xs-6 text-right"> {{day.single.available}} </span>
+    <span class="col-xs-6 text-left left-pad"> Price </span><span class="col-xs-6 text-right right-pad">Available</span>
+    <span class="col-xs-6 text-left left-pad">{{day.single.price}}</span><span class="col-xs-6 text-right right-pad"> {{day.single.available}} </span>
   </div>
-  <div class="double-room col-xs-12 panel" (click)="day.double.selected = !day.double.selected" [style.background-color]="day.double.selected ? 'rgba(192, 129, 224, 0.9)' : null" >
+  <div class="double-room col-xs-12 panel no-padding tablet-font" (click)="day.double.selected = !day.double.selected" [style.background-color]="day.double.selected ? 'rgba(192, 129, 224, 0.9)' : null" >
     <span class="col-xs-12 text-center"><b [ngClass]="{'text-primary' : !day.double.selected}" >Double</b></span>
-    <span class="col-xs-6 text-left">Price</span><span class="col-xs-6 text-right">Available</span>
-    <span class="col-xs-6 text-left">{{day.double.price}}</span><span class="col-xs-6 text-right"> {{day.double.available}} </span>
+    <span class="col-xs-6 text-left left-pad">Price</span><span class="col-xs-6 text-right right-pad">Available</span>
+    <span class="col-xs-6 text-left left-pad">{{day.double.price}}</span><span class="col-xs-6 text-right right-pad"> {{day.double.available}} </span>
   </div>
 </li>

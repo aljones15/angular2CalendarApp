@@ -3,16 +3,24 @@ and also import other style files */
 @import './bootstrap/css/bootstrap.css';
 @import './bootstrap/css/bootstrap-theme.css';
 
+.one-space {
+	height: 80px;
+}
+
+.spacer-one {
+	height: 1em;
+}
+
 .loading .maskedCircle {
-	width: 20px;
-	height: 20px;
-	border-radius: 12px;
-	border: 3px solid white;
+	width: 40px;
+	height: 40px;
+	border-radius: 24px;
+	border: 3px solid #3e3535;
 }
 
 .loading .mask {
-	width: 12px;
-	height: 12px;
+	width: 24px;
+	height: 24px;
 	overflow: hidden;
 }
 
@@ -26,8 +34,8 @@ and also import other style files */
 	position: absolute;
 	left: 1px;
 	top: 1px;
-	width: 26px;
-	height: 26px;
+	width: 52px;
+	height: 52px;
 	animation: spin 1s infinite linear;
 }
 
@@ -35,9 +43,9 @@ and also import other style files */
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 28px;
-	height: 28px;
-	margin: -14px 0 0 -14px;
+	width: 56px;
+	height: 56px;
+	margin: -28px 0 0 -28px;
 }
 
 .slider-menu {
@@ -109,6 +117,20 @@ and also import other style files */
 
 .no-padding {
   padding: 0px;
+}
+
+.left-pad {
+	padding-left: 2px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.right-pad {
+	padding-right: 2px;
+	padding-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 .full-screen-container {
@@ -204,25 +226,28 @@ input:checked + .slider:before {
 }
 
 @media (min-width: 700px) and (min-height: 300px) and (max-width: 1000px) {
-
+  .tablet-font {
+		font-size: 1rem;
+	}
   h4 {
     font-size: 1rem;
   }
 
   .switch {
     margin-top: 0.5em;
-    height: 1.5em;
+    height: 1rem;
   }
 
   .slider:before {
-    width: 30%;
+    width: 20%;
+		height: 50%;
     bottom: 0.2em;
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(175%);
-    -ms-transform: translateX(175%);
-    transform: translateX(175%);
+    -webkit-transform: translateX(225%);
+    -ms-transform: translateX(225%);
+    transform: translateX(225%);
   }
 
 }
@@ -266,13 +291,13 @@ input:checked + .slider:before {
   }
 
   .slider:before {
-    width: 30%;
+    width: 25%;
   }
 
   input:checked + .slider:before {
-    -webkit-transform: translateX(145%);
-    -ms-transform: translateX(145%);
-    transform: translateX(145%);
+    -webkit-transform: translateX(300%);
+    -ms-transform: translateX(300%);
+    transform: translateX(300%);
   }
 }
 

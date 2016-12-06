@@ -10,8 +10,9 @@ export class CalendarService {
   public days: Day[] = [];
   public displayDays: Day[];
   public daysInMonth: number = this.days ? this.days.length : 0;
+  public loading: boolean;
   constructor(private http: Http) {
-    this.year = 1979;
+    this.loading = true;
   }
 
   public makeFakeDays(month: number, year: number, calendar: CalendarService){
@@ -37,6 +38,7 @@ export class CalendarService {
   public setDays(days: Day[]){
     this.days = days;
     this.displayDays = days;
+    this.loading = false;
   }
 
   private extractData(month: number, year: number, calendar: CalendarService){
@@ -57,6 +59,7 @@ export class CalendarService {
   }
 
   getMonth(month: number, year: number): Promise<Day[]>{
+    this.loading = true;
     return this.http.get("http://localhost:8000/month/" + month + "/year/" + year)
       .toPromise()
       .then(this.extractData(month, year, this))

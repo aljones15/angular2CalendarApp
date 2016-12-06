@@ -16,18 +16,25 @@
     <h4 class="col-xs-2">{{  calendarService.displayDays ? calendarService.displayDays[0].day.getFullYear() : "error no date" }}</h4>
   </div>
   <div class="row">
-    <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() - 1 ,calendarService.displayDays[0].day.getFullYear())" id="previous-month" class="icon col-xs-3 previous-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() - 1) }} </div>
-    <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() + 1 ,calendarService.displayDays[0].day.getFullYear())" id="next-month" class="icon col-xs-3 next-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() + 1) }} </div>
+    <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() - 1 ,calendarService.displayDays[0].day.getFullYear())" id="previous-month" class="icon col-xs-3 col-md-4  previous-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() - 1) }} </div>
+    <div (click)="changeMonth(calendarService.displayDays[0].day.getMonth() + 1 ,calendarService.displayDays[0].day.getFullYear())" id="next-month" class="icon col-xs-3 col-md-4  next-month c-hand"> {{ formatMonth(calendarService.displayDays[0].day.getMonth() + 1) }} </div>
   </div>
 </div>
 </div>
-<div *ngIf="calendarService.displayDays.length <= 0">
-  <div class="loading">
-    <div class="spinner">
-      <div class="mask">
-        <div class="maskedCircle"></div>
-     </div>
+<div *ngIf="calendarService.loading" class="row col-xs-12 panel">
+  <div class="row col-xs-12 one-space"></div>
+  <div class="row col-xs-12">
+    <div class="loading">
+      <div class="spinner">
+        <div class="mask">
+          <div class="maskedCircle"></div>
+       </div>
+      </div>
     </div>
+ </div>
+  <div class="row col-xs-12 panel spacer-one"></div>
+  <div class="row col-xs-12 text-center panel">
+    <h3 class="text-muted">Loading</h3>
   </div>
 </div>
 <div id="calendar" class="panel">
