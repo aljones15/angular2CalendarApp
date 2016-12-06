@@ -9,6 +9,8 @@ export class CalendarService {
   public month: number;
   public days: Day[] = [];
   public daysInMonth: number = this.days ? this.days.length : 0;
+  public firstDay?: Day;
+  public lastDay?: Day;
   public loading: boolean;
   constructor(private http: Http) {
     this.loading = true;
@@ -31,7 +33,6 @@ export class CalendarService {
        let dayFormat = i < 10 ? "0" + i : i;
        let monthFormat = month < 10 ? "0" + month : month;
        let dateString = year + "-" + monthFormat + "-" + dayFormat + "T13:00:00";
-       console.log(dateString);
        let new_day = new Day(null, dateString, 100, 3, 200, 3);
        return new_day;
        } );
@@ -40,7 +41,10 @@ export class CalendarService {
 
   public setDays(days: Day[]){
     this.days = days;
+    this.firstDay = this.days.length > 0 ? this.days.slice(0,1)[0] : null;
+    this.lastDay = this.days.length > 0 ? this.days[this.days.length - 1] : null;
     this.loading = false;
+    console.log(this);
   }
 
   private extractData(month: number, year: number, calendar: CalendarService){
@@ -79,8 +83,6 @@ export class CalendarService {
   }
 
   public createDays(days: Day[]): Promise<Day[]>{
-    console.log("update days");
-    console.log(days.length);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let url = "http://localhost:8000/createMonth";

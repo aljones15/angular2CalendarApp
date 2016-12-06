@@ -43,6 +43,19 @@ export class BulkEditComponent implements OnInit {
     })
   }
 
+  yyyymmdd(day: Day) {
+  if(!day){
+    return null;
+  }
+    let mm = day.day.getMonth() + 1; // getMonth() is zero-based
+    let dd = day.day.getDate();
+    let dateString = [day.day.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+           ].join('-');
+    return dateString;
+  }
+
   deselectAll(){
   this.calendarService.days.map((day) => {
      day.single.selected = false;
@@ -79,7 +92,6 @@ export class BulkEditComponent implements OnInit {
   }
 
   select_days(){
-    console.log(this);
     this.select_all(this.all);
     let weekdays = Object.keys(this.week);
     weekdays.map((d) => {

@@ -15,10 +15,14 @@
       <h4 class="col-md-1 col-xs-2">Select Days:</h4>
       <div id="select_days_date_inputs" class="col-md-6 col-xs-10">
         <label class="col-xs-6 half-em-margin-top"> From:
-          <input [style.border-color]="getErrors('select-from') ? 'red': null" (change)="select_days()"  [(ngModel)]="selectDateRange.from" name="dateFrom" type="date" class="form-control" />
+          <input [style.border-color]="getErrors('select-from') ? 'red': null"
+          (change)="select_days()"  [(ngModel)]="selectDateRange.from"
+          name="dateFrom" type="date" class="form-control" value="{{ yyyymmdd(calendarService.firstDay) }}" />
         </label>
         <label class="col-xs-6 half-em-margin-top"> To:
-          <input [style.border-color]="getErrors('select-from') ? 'red': null" (change)="select_days()" [(ngModel)]="selectDateRange.to" name="dateTo" type="date" class="form-control"  />
+          <input [style.border-color]="getErrors('select-from') ? 'red': null"
+          (change)="select_days()" [(ngModel)]="selectDateRange.to"
+          name="dateTo" type="date" class="form-control" value="{{ yyyymmdd(calendarService.lastDay) }}"  />
         </label>
       </div>
     </div>
