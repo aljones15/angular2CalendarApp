@@ -14,6 +14,6 @@ export interface Week {
 }
 
 export interface DateRange {
-  from?: Date;
-  to?: Date;
+  from?: string;
+  to?: string;
 }

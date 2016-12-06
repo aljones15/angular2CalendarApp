@@ -92,18 +92,14 @@ export class BulkEditComponent implements OnInit {
   }
 
   select_days(){
-    console.log(this.calendarService.firstDay);
     let from = this.selectDateRange.from ? new Date(this.selectDateRange.from) : this.calendarService.firstDay.day;
-    let to = this.selectDateRange.to ? new Date(this.selectDateRange.to) : this.calendarService.lastDay.day;
+    let to = this.selectDateRange.to ? new Date(this.selectDateRange.to) : new Date(this.calendarService.lastDay.day.getTime());
     to.setHours(23);
-    console.log(from);
-    console.log(to);
     let dayRange = this.calendarService.days.filter((d) => {
       if(d.day >= from && d.day <= to){
         return d;
       }
     });
-    console.log(dayRange);
     this.select_all(this.all, dayRange);
     let weekdays = Object.keys(this.week);
     weekdays.map((d) => {
@@ -186,8 +182,8 @@ export class BulkEditComponent implements OnInit {
       saturday: false
     };
     this.selectDateRange = {
-      from: this.calendarService.firstDay ? this.calendarService.firstDay.day : null,
-      to: this.calendarService.lastDay ? this.calendarService.lastDay.day : null
+      from: this.yyyymmdd(this.calendarService.firstDay),
+      to: this.yyyymmdd(this.calendarService.lastDay)
     };
     this.newPrice = null;
     this.newAvailabilty = null;
