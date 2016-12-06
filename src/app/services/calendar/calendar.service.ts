@@ -29,7 +29,8 @@ export class CalendarService {
      var days = Array.from(new Array(daysInMonth(month, year)), (x , i) => i + 1);
      let FullDays: Day[] = days.map((i) => {
        let dayFormat = i < 10 ? "0" + i : i;
-       let dateString = year + "-" + month + "-" + dayFormat + "T13:00:00";
+       let monthFormat = month < 10 ? "0" + month : month;
+       let dateString = year + "-" + monthFormat + "-" + dayFormat + "T13:00:00";
        console.log(dateString);
        let new_day = new Day(null, dateString, 100, 3, 200, 3);
        return new_day;
