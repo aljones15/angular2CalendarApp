@@ -69,8 +69,6 @@ export class CalendarService {
   }
 
   public updateDays(days: Day[]): Promise<Day[]>{
-    console.log("update days");
-    console.log(days.length);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let url = "http://localhost:8000/updateMonth";
