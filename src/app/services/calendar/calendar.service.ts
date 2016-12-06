@@ -8,7 +8,6 @@ export class CalendarService {
   public year: number;
   public month: number;
   public days: Day[] = [];
-  public displayDays: Day[];
   public daysInMonth: number = this.days ? this.days.length : 0;
   public loading: boolean;
   constructor(private http: Http) {
@@ -29,15 +28,17 @@ export class CalendarService {
       }
      var days = Array.from(new Array(daysInMonth(month, year)), (x , i) => i + 1);
      let FullDays: Day[] = days.map((i) => {
-       let dateString = year + "-" + month + "-" + i;
-       return new Day(null, dateString, 100, 3, 200, 3);
+       let dayFormat = i < 10 ? "0" + i : i;
+       let dateString = year + "-" + month + "-" + dayFormat + "T13:00:00";
+       console.log(dateString);
+       let new_day = new Day(null, dateString, 100, 3, 200, 3);
+       return new_day;
        } );
       return FullDays;
   }
 
   public setDays(days: Day[]){
     this.days = days;
-    this.displayDays = days;
     this.loading = false;
   }
 
@@ -71,7 +72,7 @@ export class CalendarService {
     console.log(days.length);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let url = "http://localhost:8000/month/01/year/2017";
+    let url = "http://localhost:8000/updateMonth";
     return this.http.put(url, JSON.stringify(days), { headers: headers })
       .toPromise()
       .then((r: any) => { console.log(r); })
@@ -83,7 +84,7 @@ export class CalendarService {
     console.log(days.length);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let url = "http://localhost:8000/month/01/year/2017";
+    let url = "http://localhost:8000/createMonth";
     return this.http.post(url, JSON.stringify(days), { headers: headers })
       .toPromise()
       .then((r: any) => { console.log(r); })
@@ -93,7 +94,6 @@ export class CalendarService {
   public fetchMonth(month: number, year: number){
     let days = this.getMonth(month, year);
     let fakeDays = [];
-    this.displayDays = [];
     this.days = [];
     return fakeDays;
   }

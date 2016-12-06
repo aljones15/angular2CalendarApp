@@ -13,9 +13,8 @@ export class CalendarComponent implements OnInit {
   weekly: boolean;
   constructor(calendarService: CalendarService) {
     this.calendarService = calendarService;
-    this.calendarService.displayDays = calendarService.days;
   }
-  
+
   toggleWeekly(weekly: boolean){
     this.weekly = weekly;
   }
@@ -41,7 +40,7 @@ export class CalendarComponent implements OnInit {
   changeMonth(month: number, year: number){
     let MonthYear = this.calcMonth(month, year);
     let days = this.calendarService.fetchMonth(MonthYear[0] + 1, MonthYear[1]);
-    this.calendarService.displayDays = days;
+    this.calendarService.days = days;
   }
 
   ngOnInit() {

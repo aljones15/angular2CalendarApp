@@ -143,8 +143,13 @@ export class BulkEditComponent implements OnInit {
   updateServer(new_days: Day[]){
     let existing_days = new_days.filter((d) => { if(d.id && d.id > 0){ return d; } });
     let create_days = new_days.filter((d) => { if(!d.id || d.id <= 0){ return d; } });
-    this.calendarService.updateDays(existing_days);
-    this.calendarService.createDays(create_days);
+    if(existing_days.length > 0){
+      this.calendarService.updateDays(existing_days);
+    }
+    if(create_days.length > 0){
+      this.calendarService.createDays(create_days);
+    }
+
   }
 
   update(){
