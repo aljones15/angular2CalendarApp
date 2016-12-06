@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Day } from '../../models/day';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
 @Injectable()
@@ -61,6 +61,30 @@ export class CalendarService {
       .toPromise()
       .then(this.extractData(month, year, this))
       .catch(this.makeFakeDays(month, year, this));
+  }
+
+  public updateDays(days: Day[]): Promise<Day[]>{
+    console.log("update days");
+    console.log(days.length);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let url = "http://localhost:8000/month/01/year/2017";
+    return this.http.put(url, JSON.stringify(days), { headers: headers })
+      .toPromise()
+      .then((r: any) => { console.log(r); })
+      .catch((e :any) => { console.log(e); })
+  }
+
+  public createDays(days: Day[]): Promise<Day[]>{
+    console.log("update days");
+    console.log(days.length);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let url = "http://localhost:8000/month/01/year/2017";
+    return this.http.post(url, JSON.stringify(days), { headers: headers })
+      .toPromise()
+      .then((r: any) => { console.log(r); })
+      .catch((e :any) => { console.log(e); })
   }
 
   public fetchMonth(month: number, year: number){

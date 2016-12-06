@@ -123,7 +123,7 @@ export class BulkEditComponent implements OnInit {
   }
 
   changeDays(){
-    this.calendarService.days.map((d) => {
+    return this.calendarService.days.map((d) => {
       this.changeDay(d, "single");
       this.changeDay(d, "double");
      });
@@ -140,11 +140,19 @@ export class BulkEditComponent implements OnInit {
     }
   }
 
+  updateServer(new_days: Day[]){
+    let existing_days = new_days.filter((d) => { if(d.id && d.id > 0){ return d; } });
+    let create_days = new_days.filter((d) => { if(!d.id || d.id <= 0){ return d; } });
+    this.calendarService.updateDays(existing_days);
+    this.calendarService.createDays(create_days);
+  }
+
   update(){
     this.errors = [];
     this.validate();
     if(this.errors.length <= 0){
       this.changeDays();
+      this.updateServer(this.calendarService.days);
     }
   }
   reset(){

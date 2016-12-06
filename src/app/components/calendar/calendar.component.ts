@@ -15,6 +15,7 @@ export class CalendarComponent implements OnInit {
     this.calendarService = calendarService;
     this.calendarService.displayDays = calendarService.days;
   }
+  
   toggleWeekly(weekly: boolean){
     this.weekly = weekly;
   }
