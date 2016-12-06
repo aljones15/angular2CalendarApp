@@ -27,17 +27,17 @@ export class BulkEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectWeekends(){
-    this.calendarService.days.map((day) => {
-     if(day.day.getDay() >= 5){
+  selectWeekends(dayRange: Day[]){
+    dayRange.map((day) => {
+     if(day.day.getDay() == 6 || day.day.getDay() == 0){
        day[this.roomType].selected = true;
      }
     })
   }
 
-  selectWeekdays(){
-    this.calendarService.days.map((day) => {
-     if(day.day.getDay() < 5){
+  selectWeekdays(dayRange: Day[]){
+    dayRange.map((day) => {
+     if(day.day.getDay() <= 5 && day.day.getDay() != 0){
        day[this.roomType].selected = true;
      }
     })
@@ -57,24 +57,24 @@ export class BulkEditComponent implements OnInit {
   }
 
   deselectAll(){
-  this.calendarService.days.map((day) => {
-     day.single.selected = false;
-     day.double.selected = false;
-  })
+    this.calendarService.days.map((day) => {
+       day.single.selected = false;
+       day.double.selected = false;
+    })
   }
 
-  select_all(all: string){
+  select_all(all: string, dayRange: Day[]){
     this.deselectAll();
     switch(all){
       case "all_days":
-        this.calendarService.days.map((day) => {
+        dayRange.map((day) => {
           day[this.roomType].selected = true; });
           return;
       case "all_weekends":
-        this.selectWeekends();
+        this.selectWeekends(dayRange);
         return;
       case "all_weekdays":
-        this.selectWeekdays();
+        this.selectWeekdays(dayRange);
         return;
       case "all_none":
         this.deselectAll();
@@ -85,28 +85,30 @@ export class BulkEditComponent implements OnInit {
   }
 
 
-  select_day(dayNum: number, roomType: string){
-    this.calendarService.days.map((d) => { if(d.day.getDay() == dayNum){
+  select_day(dayNum: number, roomType: string, dayRange: Day[]){
+    dayRange.map((d) => { if(d.day.getDay() == dayNum){
       d[roomType].selected = true;
     } })
   }
 
   select_days(){
-    this.select_all(this.all);
+    console.log(this.calendarService.firstDay);
+    let from = this.selectDateRange.from ? new Date(this.selectDateRange.from) : this.calendarService.firstDay.day;
+    let to = this.selectDateRange.to ? new Date(this.selectDateRange.to) : this.calendarService.lastDay.day;
+    to.setHours(23);
+    console.log(from);
+    console.log(to);
+    let dayRange = this.calendarService.days.filter((d) => {
+      if(d.day >= from && d.day <= to){
+        return d;
+      }
+    });
+    console.log(dayRange);
+    this.select_all(this.all, dayRange);
     let weekdays = Object.keys(this.week);
     weekdays.map((d) => {
       if(this.week[d]){
-        this.select_day(weekdays.indexOf(d), this.roomType);
-      }
-      if(this.selectDateRange.from && this.selectDateRange.to){
-        console.log();
-        let from = new Date(this.selectDateRange.from);
-        let to = new Date(this.selectDateRange.to);
-        this.calendarService.days.map((day) => {
-         if(day.day.getTime() >= from.getTime() && day.day.getTime() <= to.getTime()){
-           day[this.roomType].selected = true;
-         }
-        });
+        this.select_day(weekdays.indexOf(d), this.roomType, dayRange);
       }
     })
   }
@@ -184,9 +186,9 @@ export class BulkEditComponent implements OnInit {
       saturday: false
     };
     this.selectDateRange = {
-      from: null,
-      to: null
-    }
+      from: this.calendarService.firstDay ? this.calendarService.firstDay.day : null,
+      to: this.calendarService.lastDay ? this.calendarService.lastDay.day : null
+    };
     this.newPrice = null;
     this.newAvailabilty = null;
     this.errors = [];
