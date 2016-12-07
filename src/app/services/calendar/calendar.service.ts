@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Day } from '../../models/day';
+import { ChangeMonth } from '../../models/changeMonth';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
@@ -12,8 +13,10 @@ export class CalendarService {
   public firstDay?: Day;
   public lastDay?: Day;
   public loading: boolean;
+  public changeMonthEvent$: EventEmitter<ChangeMonth>;
   constructor(private http: Http) {
     this.loading = true;
+    this.changeMonthEvent$ = new EventEmitter();
   }
 
   public makeFakeDays(month: number, year: number, calendar: CalendarService){
@@ -44,7 +47,8 @@ export class CalendarService {
     this.firstDay = this.days.length > 0 ? this.days.slice(0,1)[0] : null;
     this.lastDay = this.days.length > 0 ? this.days[this.days.length - 1] : null;
     this.loading = false;
-    console.log(this);
+    let changeMonth = new ChangeMonth(true);
+    this.changeMonthEvent$.emit(changeMonth);
   }
 
   private extractData(month: number, year: number, calendar: CalendarService){
@@ -93,6 +97,8 @@ export class CalendarService {
   }
 
   public fetchMonth(month: number, year: number){
+    this.year = year;
+    this.month = month;
     let days = this.getMonth(month, year);
     let fakeDays = [];
     this.days = [];

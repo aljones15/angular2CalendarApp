@@ -20,6 +20,7 @@ export class BulkEditComponent implements OnInit {
   newPrice: number;
   newAvailabilty: number;
   constructor(calendarService: CalendarService) {
+    calendarService.changeMonthEvent$.subscribe( r => this.reset());
     this.calendarService = calendarService;
     this.reset();
     }
