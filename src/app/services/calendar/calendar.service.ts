@@ -14,6 +14,7 @@ export class CalendarService {
   public lastDay?: Day;
   public loading: boolean;
   public changeMonthEvent$: EventEmitter<ChangeMonth>;
+  private baseURL: string =  "http://hotelquick.nfshost.com/api"; //"http://localhost:8000"
   constructor(private http: Http) {
     this.loading = true;
     this.changeMonthEvent$ = new EventEmitter();
@@ -70,7 +71,7 @@ export class CalendarService {
 
   getMonth(month: number, year: number): Promise<Day[]>{
     this.loading = true;
-    return this.http.get("http://localhost:8000/month/" + month + "/year/" + year)
+    return this.http.get(this.baseURL + "/month/" + month + "/year/" + year)
       .toPromise()
       .then(this.extractData(month, year, this))
       .catch(this.makeFakeDays(month, year, this));
@@ -79,7 +80,7 @@ export class CalendarService {
   public updateDays(days: Day[]): Promise<Day[]>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let url = "http://localhost:8000/updateMonth";
+    let url = this.baseURL + "/updateMonth";
     return this.http.put(url, JSON.stringify(days), { headers: headers })
       .toPromise()
       .then((r: any) => { console.log(r); })
@@ -89,7 +90,7 @@ export class CalendarService {
   public createDays(days: Day[]): Promise<Day[]>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    let url = "http://localhost:8000/createMonth";
+    let url = this.baseURL + "/createMonth";
     return this.http.post(url, JSON.stringify(days), { headers: headers })
       .toPromise()
       .then((r: any) => { console.log(r); })
