@@ -14,7 +14,11 @@ export class CalendarService {
   public lastDay?: Day;
   public loading: boolean;
   public changeMonthEvent$: EventEmitter<ChangeMonth>;
-  private baseURL: string =  "http://hotelquick.nfshost.com/api"; //"http://localhost:8000"
+  private baseURL: string =  "http://localhost:8000";
+  /*
+    "http://localhost:8000"
+    "http://hotelquick.nfshost.com/api"
+  */
   constructor(private http: Http) {
     this.loading = true;
     this.changeMonthEvent$ = new EventEmitter();

@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use MonthBundle\Entity\Day;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -18,7 +19,7 @@ class Get2Controller extends Controller
 
     private function jsonResponse ($json)
     {
-      $r = new Response(json_encode($json));
+      $r = new JsonResponse($json);
       $r->headers->set('Access-Control-Allow-Origin', '*');
       $r->headers->set('Access-Control-Allow-Methods', 'PUT, GET, POST, OPTIONS');
       $r->headers->set('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
