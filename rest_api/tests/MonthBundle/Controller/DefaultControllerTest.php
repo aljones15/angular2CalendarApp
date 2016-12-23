@@ -7,6 +7,9 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use MonthBundle\Entity\Day;
 
 class DefaultControllerTest extends WebTestCase
 {
@@ -16,7 +19,8 @@ class DefaultControllerTest extends WebTestCase
 
       $TestEncoders = array(new XmlEncoder(), new JsonEncoder());
 
-      $TestNormalizer = array(new ObjectNormalizer());
+      $TestNormalizer = array(new ArrayDenormalizer(),
+                              new GetSetMethodNormalizer());
 
       return new Serializer($TestNormalizer, $TestEncoders);
     }
@@ -37,7 +41,9 @@ class DefaultControllerTest extends WebTestCase
 
 
     private function fromJson($string){
-
+       $serializer = $this->getSerializer();
+       $result = $serializer->deserialize($string, 'Day[]', 'json');
+       var_dump($result);
     }
 
     public function testIndex()
@@ -63,5 +69,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $content = $client->getResponse()->getContent();
         $this->assertGreaterThan(0, strlen($content));
+        //$this->fromJson($content);
     }
 }

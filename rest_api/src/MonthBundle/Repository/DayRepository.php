@@ -10,4 +10,5 @@ namespace MonthBundle\Repository;
  */
 class DayRepository extends \Doctrine\ORM\EntityRepository
 {
+   //$repository = $this->getDoctrine()->getRepository('MonthBundle:Day');
 }
