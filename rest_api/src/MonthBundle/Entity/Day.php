@@ -194,7 +194,7 @@ class Day
       $day->setSingleAvailable($d['single']['available']);
       $day->setDoublePrice($d['double']['price']);
       $day->setDoubleAvailable($d['double']['available']);
-      $em->persist($day);
+      $em->persist($day); // this should be moved to repo
       return $day;
     }
 }

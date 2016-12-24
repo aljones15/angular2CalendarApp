@@ -32,6 +32,10 @@ class Get2Controller extends Controller
       return $r;
     }
 
+      private function dayRepo(){
+      return $this->getDoctrine()->getRepository('MonthBundle:Day');
+    }
+
 
     private function jsonError(){
       $json_errors = array(
@@ -65,13 +69,7 @@ class Get2Controller extends Controller
           return $this->corsResponse(array('error' => 'invalid_date'));
         }
         $end = $end->modify('last day of this month');
-        $repository = $this->getDoctrine()->getRepository('MonthBundle:Day');
-        $qb = $repository->createQueryBuilder('d');
-        $result = $qb->where('d.day BETWEEN :start AND :end')
-          ->setParameter('start', $start->format('Y-m-d'))
-          ->setParameter('end', $end->format('Y-m-d'))
-          ->orderBy('d.day', 'ASC')->getQuery();
-        $days = $result->getResult();
+        $days = $this->dayRepo()->allDaysForMonth($start, $end);
         return $this->corsResponse($this->jsonParser->entityToJson($days));
     }
 

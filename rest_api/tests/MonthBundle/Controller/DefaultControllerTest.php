@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use MonthBundle\Entity\Day;
 use MonthBundle\Utils\JsonParser;
 
+
+
 class DefaultControllerTest extends WebTestCase
 {
 
@@ -48,14 +50,22 @@ class DefaultControllerTest extends WebTestCase
     }
 
     public function testGetExistingMonth(){
-
         $content = $this->getMonth("2016");
-        $this->assertGreaterThan(0, strlen($content));
+        $this->assertGreaterThan(5, strlen($content));
 
     }
 
-      public function testGetBlankMonth(){
+    public function testGetBlankMonth(){
         $content = $this->getMonth("1900");
         $this->assertLessThan(5, strlen($content));
     }
+
+    public function testUpdateDay(){
+
+    }
+
+    public function testCreateMonth(){
+
+    }
+
 }
