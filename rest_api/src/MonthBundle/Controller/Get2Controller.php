@@ -17,13 +17,12 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class Get2Controller extends Controller
 {
 
-    private function jsonResponse ($json)
+    private function corsResponse ($json)
     {
       $r = new JsonResponse($json);
       $r->headers->set('Access-Control-Allow-Origin', '*');
       $r->headers->set('Access-Control-Allow-Methods', 'PUT, GET, POST, OPTIONS');
       $r->headers->set('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-      $r->headers->set('Content-Type', 'application/json');
       return $r;
     }
 
@@ -69,7 +68,7 @@ class Get2Controller extends Controller
     public function getMonth2OPTIONSAction($month_id, $year_id)
     {
       $resp = array("status" => "ok");
-      return $this->jsonResponse($resp);
+      return $this->corsResponse($resp);
     }
 
     /**
@@ -81,7 +80,7 @@ class Get2Controller extends Controller
         $start = date_create('01-' . $month_id . '-' . $year_id);
         $end = date_create('01-' . $month_id . '-' . $year_id);
         if(!$start){
-          return $this->jsonResponse(array('error' => 'invalid_date'));
+          return $this->corsResponse(array('error' => 'invalid_date'));
         }
         $end = $end->modify('last day of this month');
         $repository = $this->getDoctrine()->getRepository('MonthBundle:Day');
@@ -91,8 +90,7 @@ class Get2Controller extends Controller
           ->setParameter('end', $end->format('Y-m-d'))
           ->orderBy('d.day', 'ASC')->getQuery();
         $days = $result->getResult();
-        $r = $this->jsonResponse($this->entityToJson($days));
-        return $r;
+        return $this->corsResponse($this->entityToJson($days));
     }
 
     /**
@@ -102,7 +100,7 @@ class Get2Controller extends Controller
     public function postMonth2OPTIONSAction()
     {
       $resp = array("status" => "ok");
-      return $this->jsonResponse($resp);
+      return $this->corsResponse($resp);
     }
 
     /**
@@ -152,7 +150,7 @@ class Get2Controller extends Controller
         if(count($result <= 0)){
           array_push($result, "no_days_added");
         }
-        return $this->jsonResponse($this->entityToJson($result));
+        return $this->corsResponse($this->entityToJson($result));
     }
 
     /**
@@ -162,7 +160,7 @@ class Get2Controller extends Controller
     public function putMonth2OPTIONSAction()
     {
       $resp = array("status" => "put_ok");
-      $resp = $this->jsonResponse($resp);
+      $resp = $this->corsResponse($resp);
       return $resp;
     }
 
@@ -200,7 +198,7 @@ class Get2Controller extends Controller
             }
           }
         }
-        return $this->jsonResponse($this->entityToJson($result));
+        return $this->corsResponse($this->entityToJson($result));
     }
 
 }
