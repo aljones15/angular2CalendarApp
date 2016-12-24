@@ -1,4 +1,6 @@
-// src/MonthBundle/Util/Json.php
+<?php
+
+// MonthBundle/Utils/Json.php
 
 namespace MonthBundle\Utils;
 
@@ -9,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-public class JsonParser
+class JsonParser
 {
 
   public function getSerializer(){
@@ -27,6 +29,18 @@ public class JsonParser
     $serializer = $this->getSerializer();
     $result = $serializer->deserialize($string, $model, 'json');
     var_dump($result);
+  }
+
+  public function entityToJson($data){
+    $serializer = $this->getSerializer();
+    $json = $serializer->serialize($data, 'json');
+    return $json;
+  }
+
+  private function removeBOM($data) {
+    if (0 === strpos(bin2hex($data), 'efbbbf')) {
+      return substr($data, 3);
+    }
   }
 
 }

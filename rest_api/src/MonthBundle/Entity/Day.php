@@ -186,4 +186,15 @@ class Day
     {
         return $this->doubleAvailable;
     }
+
+    public static function createNewDay($em, $d){
+      $day = new Day();
+      $day->setDay(date_create($d['day']));
+      $day->setSinglePrice($d['single']['price']);
+      $day->setSingleAvailable($d['single']['available']);
+      $day->setDoublePrice($d['double']['price']);
+      $day->setDoubleAvailable($d['double']['available']);
+      $em->persist($day);
+      return $day;
+    }
 }

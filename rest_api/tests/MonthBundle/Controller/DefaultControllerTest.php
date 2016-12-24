@@ -4,11 +4,10 @@ namespace MonthBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use MonthBundle\Entity\Day;
+use MonthBundle\Utils\JsonParser;
 
 class DefaultControllerTest extends WebTestCase
 {
-
-
 
     private function sendJson($uri, $json, $client, $method){
 
@@ -56,7 +55,6 @@ class DefaultControllerTest extends WebTestCase
     }
 
       public function testGetBlankMonth(){
-
         $content = $this->getMonth("1900");
         $this->assertLessThan(5, strlen($content));
     }

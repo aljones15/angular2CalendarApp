@@ -9,22 +9,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use MonthBundle\Entity\Day;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use MonthBundle\Utils\JsonParser;
 
 class Get2Controller extends Controller
 {
+    private $jsonParser;
+
+    function __construct(){
+      $this->jsonParser = new JsonParser();
+    }
+
+    const ALLOWED_ORIGINS = '*';
+    const ALL_METHODS = 'PUT, GET, POST, OPTIONS';
+    const ALLOWED_HEADERS = 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers';
 
     private function corsResponse ($json)
     {
       $r = new JsonResponse($json);
-      $r->headers->set('Access-Control-Allow-Origin', '*');
-      $r->headers->set('Access-Control-Allow-Methods', 'PUT, GET, POST, OPTIONS');
-      $r->headers->set('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+      $r->headers->set('Access-Control-Allow-Origin', self::ALLOWED_ORIGINS);
+      $r->headers->set('Access-Control-Allow-Methods', self::ALL_METHODS);
+      $r->headers->set('Access-Control-Allow-Headers', self::ALLOWED_HEADERS);
       return $r;
     }
+
 
     private function jsonError(){
       $json_errors = array(
@@ -34,31 +41,6 @@ class Get2Controller extends Controller
         JSON_ERROR_SYNTAX => 'Syntax error',
         );
         return $json_errors[json_last_error()];
-    }
-
-    private function removeBOM($data) {
-      if (0 === strpos(bin2hex($data), 'efbbbf')) {
-         return substr($data, 3);
-      }
-    }
-
-    private function entityToJson($data){
-      $encoders = array(new XmlEncoder(), new JsonEncoder());
-      $normalizers = array(new ObjectNormalizer());
-      $serializer = new Serializer($normalizers, $encoders);
-      $json = $serializer->serialize($data, 'json');
-      return $json;
-    }
-
-    private function createNewDay($em, $d){
-      $day = new Day();
-      $day->setDay(date_create($d['day']));
-      $day->setSinglePrice($d['single']['price']);
-      $day->setSingleAvailable($d['single']['available']);
-      $day->setDoublePrice($d['double']['price']);
-      $day->setDoubleAvailable($d['double']['available']);
-      $em->persist($day);
-      return $day;
     }
 
     /**
@@ -90,7 +72,7 @@ class Get2Controller extends Controller
           ->setParameter('end', $end->format('Y-m-d'))
           ->orderBy('d.day', 'ASC')->getQuery();
         $days = $result->getResult();
-        return $this->corsResponse($this->entityToJson($days));
+        return $this->corsResponse($this->jsonParser->entityToJson($days));
     }
 
     /**
@@ -131,7 +113,7 @@ class Get2Controller extends Controller
                 ->orderBy('d.day', 'ASC')->getQuery();
               $days = $query->getResult();
               if(!$days){
-                array_push($result, $this->createNewDay($em, $d));
+                array_push($result, Day::createNewDay($em, $d));
               }
               else{
                 foreach($days as $day){
@@ -150,7 +132,7 @@ class Get2Controller extends Controller
         if(count($result <= 0)){
           array_push($result, "no_days_added");
         }
-        return $this->corsResponse($this->entityToJson($result));
+        return $this->corsResponse($this->jsonParser->entityToJson($result));
     }
 
     /**
@@ -198,7 +180,7 @@ class Get2Controller extends Controller
             }
           }
         }
-        return $this->corsResponse($this->entityToJson($result));
+        return $this->corsResponse($this->jsonParser->entityToJson($result));
     }
 
 }
