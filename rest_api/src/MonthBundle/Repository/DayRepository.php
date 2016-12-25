@@ -76,7 +76,21 @@ class DayRepository extends EntityRepository
   }
 
   public function updateDayRange($dayRange){
-
+    $em = $this->getEntityManager();
+    $result = array();
+    foreach($dayRange as $d){
+      if($d['id']){
+        $day = $this->dayRepo()->find($d['id']);
+        $day->setSinglePrice($d['single']['price']);
+        $day->setSingleAvailable($d['single']['available']);
+        $day->setDoublePrice($d['double']['price']);
+        $day->setDoubleAvailable($d['double']['available']);
+        $em->persist($day);
+        array_push($result, $day);
+      }
+      $em->flush();
+    }
+    return $result;
   }
 
 

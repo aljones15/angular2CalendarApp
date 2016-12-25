@@ -136,26 +136,14 @@ class Get2Controller extends Controller
       if (!empty($content))
       {
           $params = json_decode($content , true);
-          $em = $this->getDoctrine()->getManager();
-          $repository = $this->getDoctrine()->getRepository('MonthBundle:Day');
           $result = array();
           if(!$params){
             array_push($result, $this->jsonError());
             return $this->corsResponse($result);
           }
           else {
-            foreach($params as $d){
-              if($d['id']){
-                $day = $repository->find($d['id']);
-                $day->setSinglePrice($d['single']['price']);
-                $day->setSingleAvailable($d['single']['available']);
-                $day->setDoublePrice($d['double']['price']);
-                $day->setDoubleAvailable($d['double']['available']);
-                $em->persist($day);
-                array_push($result, $day);
-              }
-              $em->flush();
-            }
+            $save_result = $this->dayRepo()->updateDayRange($params);
+            $result = array_merge($result, $save_result);
           }
         }
         return $this->corsResponse($this->jsonParser->entityToJson($result));
