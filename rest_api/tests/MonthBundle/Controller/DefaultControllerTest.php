@@ -65,7 +65,9 @@ class DefaultControllerTest extends WebTestCase
     }
 
     public function testCreateMonth(){
-
+      $client = static::createClient();
+      $json = '';
+      $request = $this->sendJson("/createMonth", $json, $client, 'POST');
     }
 
 }

@@ -92,39 +92,19 @@ class Get2Controller extends Controller
       $params = array();
       $result = array();
       $content = $request->getContent();
+      if(empty($content)){
+        array_push($result, "no_days_recieved");
+      }
       if (!empty($content))
       {
           $params = json_decode($content , true);
           if(!$params){
             array_push($result, $this->jsonError());
-            return $this->jsonResponse($result);
+            return $this->corsResponse($result);
           }
           else {
-            $em = $this->getDoctrine()->getManager();
-            $repository = $this->getDoctrine()->getRepository('MonthBundle:Day');
-            foreach($params as $d){
-              $qb = $repository->createQueryBuilder('d');
-              $start = date_create($d['day']);
-              $query = $qb
-                ->where('d.day = :start')
-                ->setParameter('start', $start->format('Y-m-d'))
-                ->orderBy('d.day', 'ASC')->getQuery();
-              $days = $query->getResult();
-              if(!$days){
-                array_push($result, Day::createNewDay($em, $d));
-              }
-              else{
-                foreach($days as $day){
-                  $day->setSinglePrice($d['single']['price']);
-                  $day->setSingleAvailable($d['single']['available']);
-                  $day->setDoublePrice($d['double']['price']);
-                  $day->setDoubleAvailable($d['double']['available']);
-                  $em->persist($day);
-                  array_push($result, $day);
-                }
-              }
-            }
-            $em->flush();
+            $saveResult = $this->dayRepo()->saveDayRange($params);
+            $result = array_merge($result, $saveResult);
           }
       }
         if(count($result <= 0)){
@@ -161,7 +141,7 @@ class Get2Controller extends Controller
           $result = array();
           if(!$params){
             array_push($result, $this->jsonError());
-            return $this->jsonResponse($result);
+            return $this->corsResponse($result);
           }
           else {
             foreach($params as $d){
