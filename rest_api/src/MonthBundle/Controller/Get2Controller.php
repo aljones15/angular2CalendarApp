@@ -32,9 +32,10 @@ class Get2Controller extends Controller
       return $r;
     }
 
-      private function dayRepo(){
-      return $this->getDoctrine()->getRepository('MonthBundle:Day');
-    }
+      private function dayRepo()
+      {
+        return $this->getDoctrine()->getRepository('MonthBundle:Day');
+      }
 
 
     private function jsonError(){

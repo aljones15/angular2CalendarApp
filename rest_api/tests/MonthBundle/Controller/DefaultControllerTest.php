@@ -25,6 +25,26 @@ class DefaultControllerTest extends WebTestCase
       return $request;
     }
 
+    private function dayTemplate($date){
+
+      return sprintf('{"id":"null","day":"2000-01-' . $date . 'T00:00:00.000Z","single":{"selected":true,"price":999,"available":999,"type":"single"},"double":{"selected":false,"price":200,"available":3,"type":"double"}}', $date);
+    }
+
+    private function makeMonth(){
+      $monthString = '[%s]';
+      $dayArray = array();
+      foreach(range(1,31) as $date){
+        if($date < 10){
+          $d = "0" . $date;
+          array_push($dayArray, $this->dayTemplate($d));
+        }else {
+          array_push($dayArray, $this->dayTemplate($date));
+        }
+      }
+      $dayArray = join(',', $dayArray);
+      return sprintf($monthString, $dayArray);
+    }
+
 
     private function getMonth($year){
        $client = static::createClient();
@@ -38,15 +58,6 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
        return $client->getResponse()->getContent();
-    }
-
-    public function testIndex()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/');
-
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
     }
 
     public function testGetExistingMonth(){
@@ -68,16 +79,21 @@ class DefaultControllerTest extends WebTestCase
         $client->getResponse()->headers->contains('Content-Type', 'application/json'),
         'the "Content-Type" header is "application/json"' // optional message shown on failure
       );
+      $content = $client->getResponse()->getContent();
+      $this->assertGreaterThan(5, strlen($content));
+
     }
 
     public function testCreateMonth(){
       $client = static::createClient();
-      $json = '';
+      $json = $this->makeMonth();
       $request = $this->sendJson("/createMonth", $json, $client, 'POST');
       $this->assertTrue(
         $client->getResponse()->headers->contains('Content-Type', 'application/json'),
         'the "Content-Type" header is "application/json"' // optional message shown on failure
       );
+      $content = $client->getResponse()->getContent();
+      $this->assertGreaterThan(5, strlen($content));
     }
 
 }
