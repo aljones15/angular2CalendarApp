@@ -3,6 +3,7 @@
 namespace MonthBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Day
@@ -25,6 +26,7 @@ class Day
      * @var \DateTime
      *
      * @ORM\Column(name="day", type="date", unique=true)
+     * @Assert\NotBlank()
      */
     private $day;
 
@@ -32,6 +34,7 @@ class Day
      * @var int
      *
      * @ORM\Column(name="single_price", type="integer")
+     * @Assert\NotBlank()
      */
     private $singlePrice;
 
@@ -39,6 +42,7 @@ class Day
      * @var int
      *
      * @ORM\Column(name="single_available", type="smallint")
+     * @Assert\NotBlank()
      */
     private $singleAvailable;
 
@@ -46,6 +50,7 @@ class Day
      * @var int
      *
      * @ORM\Column(name="double_price", type="integer")
+     * @Assert\NotBlank()
      */
     private $doublePrice;
 
@@ -53,6 +58,7 @@ class Day
      * @var int
      *
      * @ORM\Column(name="double_available", type="smallint")
+     * @Assert\NotBlank()
      */
     private $doubleAvailable;
 
@@ -187,14 +193,16 @@ class Day
         return $this->doubleAvailable;
     }
 
-    public static function createNewDay($em, $d){
+    public static function createNewDay($d){
+      if(!$d['day']){
+       return null;
+      }
       $day = new Day();
       $day->setDay(date_create($d['day']));
       $day->setSinglePrice($d['single']['price']);
       $day->setSingleAvailable($d['single']['available']);
       $day->setDoublePrice($d['double']['price']);
       $day->setDoubleAvailable($d['double']['available']);
-      $em->persist($day); // this should be moved to repo
       return $day;
     }
 }

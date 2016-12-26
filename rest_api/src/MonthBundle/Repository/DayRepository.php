@@ -25,7 +25,11 @@ class DayRepository extends EntityRepository
   }
 
   public function saveDay($day){
-
+    $em = $this->getEntityManager();
+    if($day){
+      //$em->persist($newDay); testing right now so no save
+    }
+    return $day;
   }
 
   public function saveDayRange($dayRange){
@@ -35,10 +39,15 @@ class DayRepository extends EntityRepository
       $start = date_create($d['day']);
       $days = $this->getDay($start);
       if(!$days){
-        array_push($result, Day::createNewDay($em, $d));
+        $newDay = Day::createNewDay($d);
+        if($newDay){
+          $em->persist($newDay);
+          array_push($result, $newDay);
+        }
       }
       else{
         foreach($days as $day){
+          if(!$day){ echo("day was not valid"); };
           $day->setSinglePrice($d['single']['price']);
           $day->setSingleAvailable($d['single']['available']);
           $day->setDoublePrice($d['double']['price']);

@@ -150,4 +150,46 @@ class Get2Controller extends Controller
         return $this->corsResponse($this->jsonParser->entityToJson($result));
     }
 
+    /**
+     * @Route("/saveDay")
+     * @Method({"OPTIONS"})
+     */
+    public function putSaveDayOptionsAction()
+    {
+      $resp = array("status" => "put_ok");
+      $resp = $this->corsResponse($resp);
+      return $resp;
+    }
+
+    /**
+     * @Route("/saveDay")
+     * @Method({"PUT"})
+     */
+    public function putSaveDayAction(Request $request){
+      $content = $request->getContent();
+      if(empty($content)){
+        return $this->corsResponse(array("error" => "no_content"));
+      } else {
+        $json = json_decode($content, true);
+        if(empty($json)){
+          return $this->corsResponse(array("error" => "no_content"));
+        } else {
+          $newDay = Day::createNewDay($json);
+          if(!$newDay){
+            return $this->corsResponse(array("error" => "no_date"));
+          }
+          $validator = $this->get('validator');
+          $errors = $validator->validate($newDay);
+          if(count($errors) > 0){
+            return $this->corsResponse($this->jsonParser->entityToJson($errors));
+          }
+          $result = $this->dayRepo()->saveDay($newDay);
+          if(!$result){
+            return $this->corsResponse(array("error" => "not_saved"));
+          }
+        }
+      }
+      return $this->corsResponse(array("message" => "saved"));
+    }
+
 }
