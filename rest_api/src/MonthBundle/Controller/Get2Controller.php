@@ -32,10 +32,22 @@ class Get2Controller extends Controller
       return $r;
     }
 
-      private function dayRepo()
-      {
-        return $this->getDoctrine()->getRepository('MonthBundle:Day');
-      }
+    private function dayRepo()
+    {
+      return $this->getDoctrine()->getRepository('MonthBundle:Day');
+    }
+
+    private function createAndValidateDays($jsonDays){
+      $days = Day::makeDays($jsonDays);
+      $validator = $this->get('validator');
+      $days = array_filter($days, function($item) use($validator){
+        $errors = $validator->validate($item);
+        if(count($errors) <= 0){
+          return $item;
+        }
+      });
+      return $days;
+    }
 
 
     private function jsonError(){
@@ -104,7 +116,8 @@ class Get2Controller extends Controller
             return $this->corsResponse($result);
           }
           else {
-            $saveResult = $this->dayRepo()->saveDayRange($params);
+            $days = $this->createAndValidateDays($params);
+            $saveResult = $this->dayRepo()->saveDayRange($days);
             $result = array_merge($result, $saveResult);
           }
       }
@@ -143,7 +156,8 @@ class Get2Controller extends Controller
             return $this->corsResponse($result);
           }
           else {
-            $save_result = $this->dayRepo()->updateDayRange($params);
+            $days = $this->createAndValidateDays($params);
+            $save_result = $this->dayRepo()->updateDayRange($days);
             $result = array_merge($result, $save_result);
           }
         }

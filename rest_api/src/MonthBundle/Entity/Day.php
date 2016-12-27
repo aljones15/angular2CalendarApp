@@ -74,6 +74,17 @@ class Day
     }
 
     /**
+   * Set id
+   *
+   * @return int
+   */
+    public function setId($id)
+    {
+       $this->id = $id;
+       return $this;
+    }
+
+    /**
      * Set day
      *
      * @param \DateTime $day
@@ -193,6 +204,15 @@ class Day
         return $this->doubleAvailable;
     }
 
+    public function update($newDay){
+
+      $this->singlePrice = $newDay->getSinglePrice();
+      $this->singleAvailable = $newDay->getSingleAvailable();
+      $this->doublePrice = $newDay->getDoublePrice();
+      $this->doubleAvailable = $newDay->getDoubleAvailable();
+
+    }
+
     public static function createNewDay($d){
       if(!$d['day']){
        return null;
@@ -203,6 +223,14 @@ class Day
       $day->setSingleAvailable($d['single']['available']);
       $day->setDoublePrice($d['double']['price']);
       $day->setDoubleAvailable($d['double']['available']);
+      if($d['id']){
+        $day->setId($d['id']);
+      };
       return $day;
     }
+
+    public static function makeDays($days){
+      return array_map( array(__CLASS__ ,'createNewDay'), $days);
+    }
+
 }

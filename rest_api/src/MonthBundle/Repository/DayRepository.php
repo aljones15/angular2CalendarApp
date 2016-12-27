@@ -36,25 +36,16 @@ class DayRepository extends EntityRepository
     $result = array();
     $em = $this->getEntityManager();
     foreach($dayRange as $d){
-      $start = date_create($d['day']);
-      $days = $this->getDay($start);
-      if(!$days){
-        $newDay = Day::createNewDay($d);
-        if($newDay){
-          $em->persist($newDay);
-          array_push($result, $newDay);
-        }
+      $start = $d->getDay();
+      $day = $this->getDay($start)[0];
+      if(!$day){
+        $em->persist($d);
+        array_push($result, $d);
       }
       else{
-        foreach($days as $day){
-          if(!$day){ echo("day was not valid"); };
-          $day->setSinglePrice($d['single']['price']);
-          $day->setSingleAvailable($d['single']['available']);
-          $day->setDoublePrice($d['double']['price']);
-          $day->setDoubleAvailable($d['double']['available']);
-          $em->persist($day);
-          array_push($result, $day);
-        }
+        $day->update($d);
+        $em->persist($day);
+        array_push($result, $day);
       }
     }
     $em->flush();
@@ -88,12 +79,9 @@ class DayRepository extends EntityRepository
     $em = $this->getEntityManager();
     $result = array();
     foreach($dayRange as $d){
-      if($d['id']){
-        $day = $this->dayRepo()->find($d['id']);
-        $day->setSinglePrice($d['single']['price']);
-        $day->setSingleAvailable($d['single']['available']);
-        $day->setDoublePrice($d['double']['price']);
-        $day->setDoubleAvailable($d['double']['available']);
+      if($d->getId()){
+        $day = $this->dayRepo()->find($d->getId());
+        $day->update($d);
         $em->persist($day);
         array_push($result, $day);
       }
