@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use MonthBundle\Entity\Day;
 use MonthBundle\Utils\JsonParser;
+use MonthBundle\ViewModels\CalendarResponse;
 
 class Get2Controller extends Controller
 {
@@ -46,7 +47,13 @@ class Get2Controller extends Controller
           return $item;
         }
       });
-      return $days;
+      $errors = array_filter($days, function($item) use($validator){
+        $errors = $validator->validate($item);
+        if(count($errors) > 0){
+          return $errors;
+        }
+      });
+      return new CalendarResponse($days, $errors);
     }
 
 
@@ -116,9 +123,10 @@ class Get2Controller extends Controller
             return $this->corsResponse($result);
           }
           else {
-            $days = $this->createAndValidateDays($params);
-            $saveResult = $this->dayRepo()->saveDayRange($days);
+            $response = $this->createAndValidateDays($params);
+            $saveResult = $this->dayRepo()->saveDayRange($response->days);
             $result = array_merge($result, $saveResult);
+            return $response->toJsonResponse();
           }
       }
         if(count($result <= 0)){
@@ -156,9 +164,10 @@ class Get2Controller extends Controller
             return $this->corsResponse($result);
           }
           else {
-            $days = $this->createAndValidateDays($params);
-            $save_result = $this->dayRepo()->updateDayRange($days);
+            $response = $this->createAndValidateDays($params);
+            $save_result = $this->dayRepo()->updateDayRange($response->days);
             $result = array_merge($result, $save_result);
+            return $response->toJsonResponse();
           }
         }
         return $this->corsResponse($this->jsonParser->entityToJson($result));
